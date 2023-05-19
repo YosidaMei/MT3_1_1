@@ -250,7 +250,10 @@ Matrix4x4 Inverse(Matrix4x4 matrix) {
 
 Matrix4x4 MakeAffineMatrix(Vector3 scale, Vector3 theta, Vector3 translate) {
 	Matrix4x4 ScaleMatrix = MakeScaleMatrix(scale);
-	Matrix4x4 RotateMatrix = Multiply(MakeRotateXMatrix(theta.x), Multiply(MakeRotateYMatrix(theta.y), MakeRotateZMatrix(theta.z)));
+	Matrix4x4 RxMatrix = MakeRotateXMatrix(theta.x);
+	Matrix4x4 RyMatrix = MakeRotateYMatrix(theta.y);
+	Matrix4x4 RzMatrix = MakeRotateZMatrix(theta.z);
+	Matrix4x4 RotateMatrix = Multiply(RxMatrix, Multiply(RyMatrix, RzMatrix));
 	Matrix4x4 TranslateMatrix = MakeTranslateMatrix(translate);
 
 	Matrix4x4 SR_Matrix = Multiply(ScaleMatrix, RotateMatrix);
